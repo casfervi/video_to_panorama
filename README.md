@@ -14,11 +14,21 @@ Command-line tool that builds a panorama (mosaic) from a video where the camera 
 
 ## Requirements
 
+
+We strongly recommend creating a Conda environment before installing the project dependencies.
+
+### Prerequisites:
+
 - Python 3.8+
 - `opencv-python` 4.5 or newer (SIFT is included in the main package since 4.4; MAGSAC needs 4.5+, otherwise it falls back to RANSAC)
 - `numpy`
 
+### Instalation:
+
 ```bash
+conda create -n video_to_panorama python=3.10
+conda activate video_to_panorama
+
 pip install opencv-python numpy
 ```
 
