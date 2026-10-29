@@ -5,6 +5,7 @@ Small command-line tools for building and preparing panoramas with OpenCV.
 | Script | Purpose |
 |---|---|
 | [`video_to_panorama.py`](#video_to_panoramapy) | Builds a panorama from a video where the camera pans or moves across a scene. |
+| [`photos_to_panorama.py`](#photos_to_panoramapy) | Stitches a folder of overlapping photos into a panorama using OpenCV's `Stitcher`. |
 | [`crop_image.py`](#crop_imagepy) | Crops an image to a rectangle given in pixel coordinates (for example, to trim a panorama). |
 
 ## Requirements
@@ -12,9 +13,10 @@ Small command-line tools for building and preparing panoramas with OpenCV.
 - Python 3.8+
 - `opencv-python` 4.5 or newer (SIFT is in the main package since 4.4; MAGSAC needs 4.5+, otherwise `video_to_panorama.py` falls back to RANSAC)
 - `numpy`
+- `matplotlib` (only needed by `photos_to_panorama.py`)
 
 ```bash
-pip install opencv-python numpy
+pip install opencv-python numpy matplotlib
 ```
 
 ---
@@ -101,6 +103,59 @@ These sit at the top of `video_to_panorama.py`:
 
 ---
 
+## photos_to_panorama.py
+
+Stitches all the photos in a folder into one panorama with OpenCV's high-level `Stitcher`, using `SCANS` mode. This mode uses an affine model and is meant for flat scenes captured by a camera that moves along them (walls, surfaces, documents), rather than a camera that rotates in place. Use it when you have overlapping still photos instead of a video.
+
+### How it works
+
+1. Reads every file in the folder, sorted by file name.
+2. The `Stitcher` finds features, matches the photos, estimates how they fit together, compensates exposure and blends the overlaps.
+3. Saves the result as a JPEG.
+
+### Usage
+
+```bash
+python photos_to_panorama.py --image_folder FOLDER [--output_path OUTPUT_FOLDER] [--show_img True]
+```
+
+| Argument | Default | Description |
+|---|---|---|
+| `--image_folder` | required | Folder with the photos to stitch. |
+| `--output_path` | `output` | Output folder. It is created if it does not exist. |
+| `--show_img` | off | Pass any value (for example `True`) to show a grid of the input photos and the result in matplotlib windows. Leave it out to disable. |
+
+### Examples
+
+```bash
+# Stitch every photo in a folder, save to output/
+python photos_to_panorama.py --image_folder path/to/photos
+
+# Custom output folder, with preview windows
+python photos_to_panorama.py --image_folder path/to/photos --output_path results --show_img True
+```
+
+### Output
+
+The panorama is saved as `<image folder name>_stitched.jpg` inside the output folder. For example, photos in `trip_photos/` produce `output/trip_photos_stitched.jpg`. The console lists each file read and how many images were found.
+
+### Requirements for the photos
+
+- The folder should contain only image files. Every file in it is read, and a file that is not an image causes an error.
+- At least 2 photos are needed, and an empty folder makes the script fail.
+- Neighboring photos need a good overlap (roughly 30% or more) and enough texture to match.
+- Keep exposure, focus and zoom as similar as possible between shots.
+- Photos are processed in file name order, so numbered names (`img_001.jpg`, `img_002.jpg`, ...) keep things predictable.
+
+### Troubleshooting
+
+- **The script prints only `Error!`**: stitching failed. The usual cause is too little overlap or too few matching features between some photos. Retake with more overlap, or remove photos that do not overlap with the rest.
+- **Result looks distorted or bent**: the scene is probably not flat, or the camera rotated instead of moving along the scene. In the script, switch to the commented-out line `cv2.Stitcher_create(cv2.STITCHER_PANORAMA)`, which uses a rotating-camera model.
+- **Black borders around the result**: the output is not cropped automatically. Trim it with [`crop_image.py`](#crop_imagepy).
+- **Slow or out of memory**: resize the photos before stitching. Many full-resolution photos need a lot of RAM.
+
+---
+
 ## crop_image.py
 
 Crops a single image to a rectangle defined by pixel coordinates and saves the result as a JPEG. It also prints the original and cropped sizes and how much of the image was removed.
@@ -148,7 +203,9 @@ The cropped image is saved as `<original name>_croped.jpg` inside the output fol
 
 ---
 
-## Example workflow
+## Example workflows
+
+From a video:
 
 ```bash
 # 1. Build the panorama from a video
@@ -156,4 +213,14 @@ python video_to_panorama.py video.mp4 -s 15 -o output/pano.jpg
 
 # 2. Trim unwanted borders from the result
 python crop_image.py --image output/pano.jpg --crop_x 100 --crop_w 3000 --crop_y 50 --crop_h 900
+```
+
+From photos:
+
+```bash
+# 1. Stitch a folder of overlapping photos (saved as output/<folder name>_stitched.jpg)
+python photos_to_panorama.py --image_folder path/to/photos
+
+# 2. Trim unwanted borders from the result
+python crop_image.py --image output/photos_stitched.jpg --crop_x 100 --crop_w 3000 --crop_y 50 --crop_h 900
 ```
