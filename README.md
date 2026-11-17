@@ -86,7 +86,9 @@ A JPEG image. The console prints per-frame keypoint counts, match and inlier sta
 
 
 
-[![Timelapse Dubai](https://www.youtube.com/shorts/xBzca1HAdvA)](https://www.youtube.com/shorts/xBzca1HAdvA)
+https://www.youtube.com/shorts/xBzca1HAdvA
+
+
 
 
 
