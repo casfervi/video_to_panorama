@@ -85,11 +85,9 @@ A JPEG image. The console prints per-frame keypoint counts, match and inlier sta
 
 
 
-https://github.com/casfervi/video_to_panorama/blob/main/midia/videos/296958.mp4
 
+[![Timelapse Dubai](https://www.youtube.com/shorts/xBzca1HAdvA)](https://www.youtube.com/shorts/xBzca1HAdvA)
 
-
-(source: https://www.youtube.com/shorts/xBzca1HAdvA)
 
 
 
