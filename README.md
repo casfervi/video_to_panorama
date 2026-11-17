@@ -88,6 +88,7 @@ A JPEG image. The console prints per-frame keypoint counts, match and inlier sta
 
 
 
+
 (source: https://www.youtube.com/shorts/xBzca1HAdvA)
 
 
