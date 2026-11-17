@@ -66,7 +66,7 @@ python video_to_panorama.py "C:\Users\me\Downloads\video.mp4" --step 30
 | `--max-width` | `1600` | Downscale frames wider than this many pixels. `0` disables downscaling. |
 | `--nfeatures` | `8000` | Maximum number of SIFT features per frame. |
 
-### Examples
+### Running examples
 
 ```bash
 # Defaults (one frame every 30, keep top 70%, save to output/)
@@ -83,14 +83,12 @@ python video_to_panorama.py video.mp4 --max-width 0 --nfeatures 12000
 
 A JPEG image. The console prints per-frame keypoint counts, match and inlier statistics for each pair, which frames were used, and the final panorama size.
 
+### Examples
 
+Source: https://www.youtube.com/shorts/xBzca1HAdvA
 
-
-https://www.youtube.com/shorts/xBzca1HAdvA
-
-
-
-
+Result: 
+<img width="3213" height="3517" alt="panorama_20261029_152644" src="https://github.com/user-attachments/assets/cbdf7bd5-0bfa-40f7-bb1d-decb9c521029" />
 
 
 ### Tuning and troubleshooting
@@ -145,7 +143,7 @@ python photos_to_panorama.py --image_folder FOLDER [--output_path OUTPUT_FOLDER]
 | `--output_path` | `output` | Output folder. It is created if it does not exist. |
 | `--show_img` | off | Pass any value (for example `True`) to show a grid of the input photos and the result in matplotlib windows. Leave it out to disable. |
 
-### Examples
+### Running Examples
 
 ```bash
 # Stitch every photo in a folder, save to output/
@@ -158,6 +156,20 @@ python photos_to_panorama.py --image_folder path/to/photos --output_path results
 ### Output
 
 The panorama is saved as `<image folder name>_stitched.jpg` inside the output folder. For example, photos in `trip_photos/` produce `output/trip_photos_stitched.jpg`. The console lists each file read and how many images were found.
+
+### Examples
+
+Input images:
+<img width="640" height="480" alt="yosemite4" src="https://github.com/user-attachments/assets/3910c884-6c46-4418-bcb3-510b039f92eb" />
+<img width="640" height="480" alt="yosemite3" src="https://github.com/user-attachments/assets/467036a1-577b-41cf-ab61-6aa761d71896" />
+<img width="640" height="480" alt="yosemite2" src="https://github.com/user-attachments/assets/685ff040-c86d-4f79-aa22-1218a5fd5c64" />
+<img width="640" height="480" alt="yosemite1" src="https://github.com/user-attachments/assets/ce02bb85-22a4-420e-87d1-c789212096ea" />
+
+Output panorama:
+
+<img width="1258" height="503" alt="teste_stitched" src="https://github.com/user-attachments/assets/7604f0b8-054b-45c0-be3e-2dea184fd3b2" />
+
+
 
 ### Requirements for the photos
 
