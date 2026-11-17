@@ -221,7 +221,7 @@ python video_strip_mosaic.py VIDEO [--axis x|y] [--start-frame N] [--end-frame N
 | `--min-response` | `0.05` | Minimum phase-correlation confidence to trust a measurement. |
 | `-o`, `--output` | `output/strip_<YYYYMMDD_HHMMSS>.jpg` | Output image path. |
 
-### Examples
+### Running examples
 
 ```bash
 # Horizontal movement, defaults
@@ -237,6 +237,16 @@ python video_strip_mosaic.py video.mp4 --step 2 --crop-ratio 0.8 -o long.png
 ### Output
 
 An image with the video's own orientation: a wide image for horizontal movement and a tall one for vertical movement. The console prints the number of frames, the mean, minimum and maximum motion in pixels per frame, the expected length, and the final size and number of strips. JPEG cannot store images larger than 65500 px on either side, so if the result is bigger the script saves a PNG instead.
+
+### Examples
+
+
+Source video: https://www.youtube.com/shorts/PUG2r-oNjTU
+
+Output panorama:
+
+<img width="1811" height="640" alt="strip_20261117_095333" src="https://github.com/user-attachments/assets/728b358c-07d5-4575-9c95-876548cf538e" />
+
 
 ### Tuning and troubleshooting
 
@@ -301,36 +311,3 @@ The cropped image is saved as `<original name>_croped.jpg` inside the output fol
 - Values larger than the image size are clipped to the image border.
 - The output is always saved as JPEG, regardless of the input format.
 
----
-
-## Example workflows
-
-From a video:
-
-```bash
-# 1. Build the panorama from a video
-python video_to_panorama.py video.mp4 -s 15 -o output/pano.jpg
-
-# 2. Trim unwanted borders from the result
-python crop_image.py --image output/pano.jpg --crop_x 100 --crop_w 3000 --crop_y 50 --crop_h 900
-```
-
-From a video moving in one direction (strip mosaic):
-
-```bash
-# 1. Join strips from the frames (use --axis y for vertical movement)
-python video_strip_mosaic.py video.mp4 -o output/long.png
-
-# 2. Trim unwanted borders from the result
-python crop_image.py --image output/long.png --crop_x 0 --crop_w 12000 --crop_y 50 --crop_h 900
-```
-
-From photos:
-
-```bash
-# 1. Stitch a folder of overlapping photos (saved as output/<folder name>_stitched.jpg)
-python photos_to_panorama.py --image_folder path/to/photos
-
-# 2. Trim unwanted borders from the result
-python crop_image.py --image output/photos_stitched.jpg --crop_x 100 --crop_w 3000 --crop_y 50 --crop_h 900
-```
