@@ -160,10 +160,11 @@ The panorama is saved as `<image folder name>_stitched.jpg` inside the output fo
 ### Examples
 
 Input images:
-<img width="640" height="480" alt="yosemite4" src="https://github.com/user-attachments/assets/3910c884-6c46-4418-bcb3-510b039f92eb" />
-<img width="640" height="480" alt="yosemite3" src="https://github.com/user-attachments/assets/467036a1-577b-41cf-ab61-6aa761d71896" />
-<img width="640" height="480" alt="yosemite2" src="https://github.com/user-attachments/assets/685ff040-c86d-4f79-aa22-1218a5fd5c64" />
-<img width="640" height="480" alt="yosemite1" src="https://github.com/user-attachments/assets/ce02bb85-22a4-420e-87d1-c789212096ea" />
+
+<img width="320" height="240" alt="yosemite4" src="https://github.com/user-attachments/assets/3910c884-6c46-4418-bcb3-510b039f92eb" />
+<img width="320" height="240" alt="yosemite3" src="https://github.com/user-attachments/assets/467036a1-577b-41cf-ab61-6aa761d71896" />
+<img width="320" height="240" alt="yosemite2" src="https://github.com/user-attachments/assets/685ff040-c86d-4f79-aa22-1218a5fd5c64" />
+<img width="320" height="240" alt="yosemite1" src="https://github.com/user-attachments/assets/ce02bb85-22a4-420e-87d1-c789212096ea" />
 
 Output panorama:
 
