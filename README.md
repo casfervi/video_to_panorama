@@ -83,6 +83,15 @@ python video_to_panorama.py video.mp4 --max-width 0 --nfeatures 12000
 
 A JPEG image. The console prints per-frame keypoint counts, match and inlier statistics for each pair, which frames were used, and the final panorama size.
 
+
+
+
+
+
+(source: https://www.youtube.com/shorts/xBzca1HAdvA)
+
+
+
 ### Tuning and troubleshooting
 
 - **"Could not align at least 2 frames"**: consecutive frames do not overlap enough. Lower `--step`.
